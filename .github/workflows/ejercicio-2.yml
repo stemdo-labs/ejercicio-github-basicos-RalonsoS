@@ -34,6 +34,6 @@ jobs:
     steps:
       - name: Push Simulado
         run: |
-          echo: "Se realiza un push de los resultados"
+          echo "Se realiza un push de los resultados"
 
 
