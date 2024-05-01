@@ -5,10 +5,10 @@ on:
   # Aniado restricciones para que solo se ejecute cuando el evento se produce en la rama stemdo
   push:      
     branches:
-      - stemdo
+      - main
   pull_request:
     branches:
-      - stemdo
+      - main
 
 jobs:
   build:
