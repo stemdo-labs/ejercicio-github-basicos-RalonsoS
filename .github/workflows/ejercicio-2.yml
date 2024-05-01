@@ -1,0 +1,39 @@
+# Objetivo: Crear un wokflow que simule los siguientes estados de CI/CD buid , test y push. Para la simulación podemos usar echo para motrar por pantalla el estado del flujo.
+name: ejercicio 2
+
+on:
+  # Aniado restricciones para que solo se ejecute cuando el evento se produce en la rama stemdo
+  push:      
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Simulado
+        run: |
+          echo "Comenzando la construccion..."
+          echo "Construccion completada"
+  
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tests Simulados
+        run: |
+          echo "Ejecutando pruebas..."
+          echo "Pruebas realizadas con exito"
+  
+  push:
+    needs: [build, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Push Simulado
+        run: |
+          echo "Se realiza un push de los resultados"
+
+
