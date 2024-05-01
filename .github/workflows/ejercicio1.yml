@@ -1,0 +1,19 @@
+# 1. Objetivo: Ejecutar un script al hacer push, mostrando información del runner y la rama.
+name: ejercicio 1
+on: 
+    push
+jobs: 
+  get_message_when_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mostrar informacion del runner
+        run: |
+          echo "Nombre del runner: ${{runner.name}}"
+          echo "Sistema operativo del runner: ${{runner.os}}"
+          echo "Nombre del runner: ${{runner.arch}}"
+          
+      - name: Mostrar informacion de la rama en la que me encuentro
+        run: |
+          echo "El nombre de la rama es: ${{github.ref_name}}"
+          echo "La rama esta protegida ?: ${{github.ref_protected}}"
+
