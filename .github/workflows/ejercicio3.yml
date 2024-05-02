@@ -7,12 +7,10 @@ on:
 
 jobs:
   handle_issue:
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     runs-on: ubuntu-latest
     steps:
-      - name: Login to GitHub
-        run: |
-          echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
-
       - name: Generate issue
         if: github.event_name == 'pull_request' && github.event.action != 'closed'
         run: |
