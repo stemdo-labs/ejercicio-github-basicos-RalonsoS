@@ -21,4 +21,4 @@ jobs:
       - name: Check if PR is closed
         if: github.event_name == 'pull_request' && github.event.action == 'closed'
         run: |
-          gh issue close ${{ github.event.pull_request.number }} --comment "La issue se ha cerrado automaticamente porqque se ha cerrado la PR"
+          gh issue close ${{ github.event.number }} --comment "La issue se ha cerrado automaticamente porqque se ha cerrado la PR"
