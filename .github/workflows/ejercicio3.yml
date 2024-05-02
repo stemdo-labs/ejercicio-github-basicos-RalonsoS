@@ -1,0 +1,22 @@
+# Generar una issue al abrir un pull request.
+name: ejercicio 3
+
+on:
+  pull_request: 
+    types: [opened, reopened, closed]
+
+jobs:
+  handle_issue:
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate issue
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        run: |
+          gh issue create --title "Issue creada para la PR: ${{ github.event.pull_request.title }}" --body "Esta issue se genera automáticamente cuando se crea la PR" --assignee "@me"
+
+      - name: Check if PR is closed
+        if: github.event_name == 'pull_request' && github.event.action == 'closed'
+        run: |
+          gh issue close ${{ github.event.pull_request.title }} --comment "La issue se ha cerrado automaticamente porqque se ha cerrado la PR"
