@@ -34,5 +34,5 @@ jobs:
       
       - name: Link pull request
         run: |
-          echo ${{ needs.create_issue.outputs.issue_id }}
+          echo "${{ needs.create_issue.outputs.issue_id }}""
   
