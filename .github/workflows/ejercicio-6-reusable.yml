@@ -32,8 +32,8 @@ jobs:
       - name: Login to Dockerhub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.dh_user }}
-          password: ${{ secrets.dh_password }}
+          username: ${{ inputs.dh_user }}
+          password: ${{ inputs.dh_password }}
 
       - name: Build container
         uses: docker/build-push-action@v5
