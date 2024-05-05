@@ -11,7 +11,7 @@ jobs:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     outputs:
-      issue_id: ${{ steps.generate_issue.issue_id }}
+      issue_id: ${{ steps.generate_issue.outputs.issue_id }}
 
     runs-on: ubuntu-latest
     steps:
@@ -34,5 +34,6 @@ jobs:
       
       - name: Link pull request
         run: |
+          echo "Issue id: #${{ needs.create_issue.outputs.issue_id }}"
           gh pr edit ${{ github.event.number }} --body "Close #${{ needs.create_issue.outputs.issue_id }}"
   
