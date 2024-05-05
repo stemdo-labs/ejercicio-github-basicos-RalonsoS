@@ -34,5 +34,5 @@ jobs:
       
       - name: Link pull request
         run: |
-          echo "${{ needs.create_issue.outputs.issue_id }}"
+          gh pr edit ${{ github.event.number }} --body "Close #${{ needs.create_issue.outputs.issue_id }}"
   
