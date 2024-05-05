@@ -19,6 +19,9 @@ jobs:
       - name: Setup
         run: echo "Configurando la calculadora..."
 
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
       - name: Usar la acción compuesta de calculadora
         id: calculadora
         uses: ./actions/calculadora
