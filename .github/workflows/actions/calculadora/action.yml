@@ -16,4 +16,5 @@ runs:
   using: 'composite'
   steps:
     - name: Ejecutar calculo
+      shell: bash
       run: ./calculate.sh "${{ inputs.operacion }}" "${{ inputs.valores }}"
