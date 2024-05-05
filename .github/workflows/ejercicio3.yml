@@ -3,7 +3,7 @@ name: ejercicio 3
 
 on:
   pull_request: 
-    types: [opened]
+    types: [opened, reopened]
 
 jobs:
   create_issue:
