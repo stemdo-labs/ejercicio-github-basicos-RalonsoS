@@ -1,0 +1,14 @@
+name: ejercicio 6
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-reusable-docker:
+    uses: ./.github/workflows/ejercicio-6-reusable.yml
+    with:
+      image: ralonsostemdo/python-api
+      tag: latest
+    secrets:
+      dh_user: ${{ secrets.DH_USER }}
+      dh_password: ${{ secrets.DH_PASSWORD }}
