@@ -7,7 +7,7 @@ jobs:
   call-reusable-docker:
     uses: ./.github/workflows/ejercicio-6-reusable.yml
     with:
-      image: ralonsostemdo/python-api
+      image: mysql
       tag: latest
     secrets:
       dh_user: ${{ secrets.DH_USER }}
