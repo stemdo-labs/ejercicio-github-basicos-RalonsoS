@@ -20,7 +20,7 @@ jobs:
       - name: Generate issue
         id: generate_issue
         run: |
-          echo "issue_id=$(gh issue create --title "Issue creada para la PR: ${{ github.event.pull_request.title }}" --body "Esta issue se genera automáticamente cuando se crea la PR" --assignee "@me")" >> $GITHUB_OUTPUT
+          echo "issue_id=$(gh issue create --title "Issue creada para la PR: ${{ github.event.pull_request.title }}" --body "Esta issue se genera automáticamente cuando se crea la PR" --assignee "@me" | cut -d"/" -f7)" >> $GITHUB_OUTPUT
   
   link_pull_request:
     env:
