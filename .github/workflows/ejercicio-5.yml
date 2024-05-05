@@ -1,0 +1,29 @@
+# Login en azure
+name: ejercicio 5
+
+on:
+  workflow_dispatch:
+    
+jobs:
+    login-azure-action:
+      runs-on: ubuntu-latest
+      steps:
+
+      - name: Login con action
+        uses: azure/login@v2
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          allow-no-subscriptions: true
+          enable-AzPSSession: true
+    
+    login-azure-bash:
+      runs-on: ubuntu-latest
+      steps:
+        - run: |
+            az login \
+            --allow-no-subscriptions \
+            --service-principal \
+            --username ${{ secrets.AZURE_CLIENT_ID }} \
+            --tenant ${{ secrets.AZURE_TENANT_ID }} \
+            --password "${{ secrets.AZURE_CLIENT_SECRET }}"
+            

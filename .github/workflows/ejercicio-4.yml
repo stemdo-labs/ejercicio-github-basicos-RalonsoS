@@ -1,0 +1,61 @@
+# Crea una calculadora ...
+name: ejercicio 4
+
+on:
+  workflow_dispatch:
+    inputs:
+      operacion:
+        description: 'Operacion (suma, resta, multiplicacion, division)'
+        required: true
+      valores:
+        description: 'Valores de entrada separados por comas (ej.: 10,20,30)'
+        required: true
+
+jobs:
+  calcular:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup
+        run: echo "Configurando la calculadora..."
+
+      - name: Ejecutar calculo
+        run: |
+          # Leer entradas
+          OPERACION=${{ github.event.inputs.operacion }}
+          VALORES_RAW=${{ github.event.inputs.valores }}
+          IFS=',' read -r -a VALORES <<< "$VALORES_RAW"
+          # Validar operacion
+          if [[ "$OPERACION" != "suma" && "$OPERACION" != "resta" && "$OPERACION" != "multiplicacion" && "$OPERACION" != "division" ]]; then
+            echo "Operación inválida. Use suma, resta, multiplicacion o division."
+            exit 1
+          fi
+          # Validar valores de entrada
+          if [[ ${#VALORES[@]} -lt 2 ]]; then
+            echo "Se requieren al menos 2 valores para la operación."
+            exit 1
+          fi
+          # Inicializar resultado con el primer valor
+          RESULTADO=${VALORES[0]}
+          # Ejecutar operación
+          for (( i = 1; i < ${#VALORES[@]}; i++ )); do
+            case "$OPERACION" in
+              suma)
+                RESULTADO=$(echo "$RESULTADO + ${VALORES[$i]}" | bc)
+                ;;
+              resta)
+                RESULTADO=$(echo "$RESULTADO - ${VALORES[$i]}" | bc)
+                ;;
+              multiplicacion)
+                RESULTADO=$(echo "$RESULTADO * ${VALORES[$i]}" | bc)
+                ;;
+              division)
+                if [[ ${VALORES[$i]} -eq 0 ]]; then
+                  echo "Error: No se puede dividir por cero."
+                  exit 1
+                fi
+                RESULTADO=$(echo "$RESULTADO / ${VALORES[$i]}" | bc -l)
+                ;;
+            esac
+          done
+          echo "Resultado: $RESULTADO"

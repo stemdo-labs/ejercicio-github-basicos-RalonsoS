@@ -1,0 +1,39 @@
+# Generar una issue al abrir un pull request.
+name: ejercicio 3
+
+on:
+  pull_request: 
+    types: [opened, reopened]
+
+jobs:
+  create_issue:
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    outputs:
+      issue_id: ${{ steps.generate_issue.outputs.issue_id }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate issue
+        id: generate_issue
+        run: |
+          echo "issue_id=$(gh issue create --title "Issue creada para la PR: ${{ github.event.pull_request.title }}" --body "Esta issue se genera automáticamente cuando se crea la PR" --assignee "@me" | cut -d"/" -f7)" >> $GITHUB_OUTPUT
+  
+  link_pull_request:
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+    needs: create_issue
+      
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Link pull request
+        run: |
+          echo "Issue id: #${{ needs.create_issue.outputs.issue_id }}"
+          gh pr edit ${{ github.event.number }} --body "Close #${{ needs.create_issue.outputs.issue_id }}"
+  
