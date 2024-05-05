@@ -1,0 +1,19 @@
+# actions/calculadora/action.yml
+name: 'Calculadora'
+description: 'Para realizar operaciones simples'
+inputs:
+  operacion:
+    description: 'Operacion (suma, resta, multiplicacion, division)'
+    required: true
+  valores:
+    description: 'Valores de entrada separados por comas (ejemplo: 10,20,30)'
+    required: true
+outputs:
+  resultado:
+    description: 'Resultado de la operacion'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Ejecutar calculo
+      run: ./calculate.sh "${{ inputs.operacion }}" "${{ inputs.valores }}"
