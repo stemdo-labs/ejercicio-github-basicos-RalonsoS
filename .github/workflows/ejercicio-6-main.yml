@@ -12,8 +12,8 @@ jobs:
   call-reusable-docker:
     uses: ./.github/workflows/ejercicio-6-reusable.yml
     with:
-      image: nginx
-      tag: ploopez/ngnixtest:latest
+      image: mysql
+      tag: ralonsostemdo/mysql:latest
     secrets:
       dh_user: ${{ secrets.DH_USER }}
       dh_password: ${{ secrets.DH_PASSWORD }}
