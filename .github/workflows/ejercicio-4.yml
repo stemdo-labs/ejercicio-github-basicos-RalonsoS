@@ -21,7 +21,7 @@ jobs:
 
       - name: Usar la acción compuesta de calculadora
         id: calculadora
-        uses: ./actions/calculadora/calculate.sh
+        uses: ./actions/calculadora
         with:
           operacion: "${{ github.event.inputs.operacion }}"
           valores: "${{ github.event.inputs.valores }}"
